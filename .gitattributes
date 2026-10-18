@@ -1,0 +1,4 @@
+# Course data must stay byte-identical to the SHA-256 hashes in PROVENANCE.md:
+# never convert line endings in these files.
+datos/** -text
+esquemas/*.csv -text
