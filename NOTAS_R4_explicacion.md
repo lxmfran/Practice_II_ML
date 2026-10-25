@@ -353,24 +353,4 @@ Los dos son agrupados y válidos; difieren en qué configuraciones van a cada fo
 **¿La semilla hace el algoritmo determinista?**
 No: hace el experimento reproducible *condicionado a esa semilla*. No se puede afirmar que el resultado sea independiente de ella.
 
----
 
-## 6. Limitaciones y cosas honestas que decir
-
-- La explicación del `KFold` sin barajar es razonada, **no medida**.
-- No sabemos con qué semilla/procedimiento se generaron los folds canónicos de storage.
-- Las métricas de ransomware tienen mucha incertidumbre por el soporte.
-- Los resultados dependen de la semilla congelada; no se ha explorado otra.
-- Las filas Dummy de `comparativa.csv` pueden solaparse con las que añadan R2/R3.
-- `fit_time_s` varía entre ejecuciones y máquinas, así que no es reproducible al milésimo.
-
----
-
-## 7. Ejercicios para comprobar que lo has entendido
-
-1. Con las 6 filas del ejemplo (grupos A, A, B, B, C, C), dibuja a mano un `KFold` de 3 que provoque fuga y un `GroupKFold` de 3 que no.
-2. Cambia en el notebook `n_neighbors=5` por `1` en el `storage_pipeline` y repite la sección 5. ¿Qué esperas que pase con la diferencia entre agrupado y por filas? (Pista: K_NN = 1 memoriza al máximo.)
-3. Quita `shuffle=True` del `KFold` por filas y observa el resultado. Comprueba si mi explicación es cierta.
-4. Calcula a mano el macro F1 de un clasificador que predice siempre la clase "normal" (accuracy 0,1374) y comprueba que sale 0,0242.
-5. Explica con tus palabras, sin mirar, por qué `10**0.2` no son "1,58 nanosegundos".
-6. Abre `comparativa.csv`, ejecuta dos veces la sección 10 y comprueba que no se duplican filas.
