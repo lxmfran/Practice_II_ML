@@ -1,6 +1,6 @@
 # `roles.md` — the five-phase rotation
 
-**Team:** _(team identifier)_ · **Members:** S1 … S5 _(replace with names)_
+**Team:** Team 1 · **Current milestone:** P2 · **Updated:** 2026-10-25
 
 Submit this file with **every** milestone, with the current phase's row marked.
 
@@ -18,11 +18,11 @@ Submit this file with **every** milestone, with the current phase's row marked.
 
 | Student | P2 | P3 | P4 | P5 | Final Integration & Defence |
 |---|---|---|---|---|---|
-| S1 = ______ | R1 | R2 | R3 | R4 | **R5** |
-| S2 = ______ | R2 | R3 | R4 | R5 | **R1** |
-| S3 = ______ | R3 | R4 | R5 | R1 | **R2** |
-| S4 = ______ | R4 | R5 | R1 | R2 | **R3** |
-| S5 = ______ | R5 | R1 | R2 | R3 | **R4** |
+| S1 = Diana Luque | R1 | R2 | R3 | R4 | **R5** |
+| S2 = Francisco Moya | R2 | R3 | R4 | R5 | **R1** |
+| S3 = Claudia Martínez | R3 | R4 | R5 | R1 | **R2** |
+| S4 = Fernando Caceres | R4 | R5 | R1 | R2 | **R3** |
+| S5 = Marina García | R5 | R1 | R2 | R3 | **R4** |
 
 Four properties of this table are what make it a rotation rather than a rota:
 
@@ -53,10 +53,10 @@ arithmetic.
 
 | Field | Value |
 |---|---|
-| Milestone | _(P2 / P3 / P4 / P5 / Final Integration & Defence)_ |
-| R1 | |
-| R2 | |
-| R3 | |
-| R4 | |
-| R5 | |
-| Anything the team reallocated, and why | |
+| Milestone | **P2** |
+| R1 | Diana Luque |
+| R2 | Francisco Moya |
+| R3 | Claudia Martínez |
+| R4 | Fernando Caceres |
+| R5 | Marina García |
+| Anything the team reallocated, and why | No change to the supplied role allocation has been reported. R5 integrates the role contributions into the two final challenge notebooks. |

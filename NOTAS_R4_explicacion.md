@@ -1,6 +1,6 @@
 # Notas de estudio del rol R4 (Evaluación y validación) — Práctica 2
 
-Guía para que todo el equipo entienda **qué hace cada parte** de `notebooks/borradores/R4_evaluacion.ipynb`,
+Guía para que todo el equipo entienda **qué hace cada parte** de `notebooks/R4_evaluacion.ipynb`,
 **por qué** se hace así y **cómo defenderlo**. Es material de apoyo del equipo, no un entregable de la práctica.
 
 Todas las cifras de este documento salen de ejecutar el notebook con `PROJECT_RANDOM_STATE = 2627`.
@@ -169,10 +169,10 @@ Nunca como "1,63 ns" ni "0,63 ns".
 | `StratifiedGroupKFold` | 0,9442 | 0,012 |
 | `StratifiedKFold` | 0,9443 | 0,016 |
 
-Diferencia: **−0,0001**. Es menor que la variación entre folds y el signo cambia (agrupado mejor en los folds 1–3, peor en 4–5).
+Diferencia de medias: **−0,0001**. Es pequeña frente a la dispersión descriptiva de cada protocolo. Los folds con el mismo número no validan las mismas filas bajo los dos protocolos, por lo que no son diferencias pareadas de modelos.
 
 **Por qué casi no hay diferencia aquí.** Hay 34.883 `feature_group` para 34.928 filas: casi todos los grupos son una sola fila.
-Solo ≈ 45 filas repiten el vector de otra (0,13 %). Casi no hay duplicados que un reparto sin agrupar pueda separar.
+Hay 38 grupos de más de una fila, que contienen 83 filas en total: son 45 filas adicionales respecto de un representante por grupo. Sus etiquetas están en conflicto. Esto contextualiza la diferencia pequeña, pero no demuestra su causa.
 
 **Lección:** el enunciado dice explícitamente que el signo y tamaño de la diferencia **no se predicen**: se miden.
 Y la justificación del agrupado **no depende de cuánto salga**.
@@ -186,8 +186,7 @@ Es el corazón conceptual. Estructura:
 1. **Qué queremos estimar:** rendimiento sobre un grupo exacto de características **no visto**. Eso es lo que verá el test final.
 2. **Qué rompe un grupo partido:** parte de la validación se responde con filas idénticas del entrenamiento
    (distancia 0 en KNN). Se mide *memoria*, no generalización → el score estima **otra cosa**.
-3. **El sesgo no se puede acotar:** depende de cuántos duplicados haya y de cuánto memorice el modelo
-   (KNN con K_NN pequeño memoriza mucho). El propio número no te dice cuánto está inflado.
+3. **El sentido del cambio no está garantizado:** en cyber, la puntuación sin agrupar puede subir, bajar o cambiar poco. El resultado observado no corrige el hecho de que se están evaluando grupos parcialmente vistos.
 4. **La selección de modelo hereda el problema:** elegir K_NN con un score contaminado favorece modelos que memorizan.
 
 **Idea clave para la defensa:** el protocolo se elige *por lo que garantiza*, no *por lo que midió*.
@@ -326,13 +325,13 @@ Es ambigüedad en los datos (no un fallo de los folds) y limita la precisión m�
 ## 5. Preguntas probables en la defensa (con respuesta corta)
 
 **¿Por qué grupos también en cyber si la diferencia salió casi nula?**
-Porque el protocolo se justifica por lo que el score debe estimar (generalizar a grupos no vistos), no por el tamaño del hueco observado. La diferencia es pequeña solo porque casi no hay duplicados.
+Porque el protocolo se justifica por lo que el score debe estimar (generalizar a grupos no vistos), no por el tamaño del hueco observado. La escasa duplicación ayuda a contextualizar el resultado; no demuestra por sí sola la causa de la diferencia ni su significación.
 
 **¿Por qué el KFold por filas sale más optimista en storage?**
 Porque las 5 réplicas de cada configuración, idénticas en características, quedan repartidas entre train y validación; KNN las encuentra a distancia 0 y "recuerda" la latencia.
 
 **¿Qué es un invariante y cómo lo verificaste?**
-Una propiedad que debe cumplirse siempre (ningún grupo en train y validación). Intersección de conjuntos de grupos vacía en cada fold, con `assert`, más una comprobación independiente por hash de vectores.
+Una propiedad que debe cumplirse siempre (ningún grupo en train y validación). Intersección de conjuntos de grupos vacía en cada fold, con `assert`, más la comprobación de que cada grupo corresponde a un vector exacto y de que una configuración no aparece en varios grupos.
 
 **¿Por qué macro F1 como métrica primaria?**
 Trata igual a todas las clases; con una clase deliberadamente rara (ransomware, 208 filas) no deja que las grandes la tapen.
@@ -353,3 +352,8 @@ Los dos son agrupados y válidos; difieren en qué configuraciones van a cada fo
 No: hace el experimento reproducible *condicionado a esa semilla*. No se puede afirmar que el resultado sea independiente de ella.
 
 
+
+
+## Aclaración de la revisión final
+
+En cyber, una partición sin grupos puede dar una puntuación mayor, menor o similar: no se debe afirmar que siempre la infla. Los 38 grupos repetidos tienen etiquetas en conflicto. Los folds con el mismo número bajo protocolos distintos no validan las mismas filas y no forman una comparación pareada. La comparación pareada de modelos se hace sobre los mismos folds canónicos; su dispersión es descriptiva y no demuestra significación ni equivalencia. Este archivo es una guía interna en español, no uno de los entregables evaluables.
