@@ -13,8 +13,7 @@ Todas las cifras de este documento salen de ejecutar el notebook con `PROJECT_RA
 > **¿cómo predecirá el modelo sobre datos que no ha visto?**
 
 Casi toda tu parte (P2.2) consiste en construir y comprobar un procedimiento de validación
-que **no haga trampa**, para que el resto del equipo (R2, R3) y el resto de la práctica (P3, P4, P5)
-midan siempre igual.
+que **no haga trampa**, para que el resto de la práctica (P3, P4, P5) mida siempre igual.
 
 Por eso tu rol tiene **veto**: si alguien evalúa de forma que viola el contrato, tú lo paras.
 
@@ -228,13 +227,13 @@ PredefinedSplit(test_fold=fold_id)   # fold_id[i] = k  → la fila i valida en e
 ```
 
 Es el adaptador que convierte un vector "a qué fold pertenece cada fila" en un `cv` que acepta `cross_validate`.
-La función `canonical_cv("cyber")` lo encapsula para que R2 y R3 lo copien.
+La función `canonical_cv("cyber")` lo encapsula para poder copiarlo a otros notebooks sin cambiarlo.
 
 ---
 
 ### 3.8 Funciones de evaluación comunes (sección 9)
 
-Son lo que R2 y R3 usarán. Dos ideas centrales:
+Son las funciones que se reutilizan para evaluar cualquier modelo. Dos ideas centrales:
 
 **A) Clonar y reajustar en cada fold** (`clone(estimator)`): cada fold parte de un modelo **sin entrenar**.
 Si reutilizaras el mismo objeto, arrastrarías estado de un fold a otro (fuga entre folds).
