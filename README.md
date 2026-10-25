@@ -15,28 +15,29 @@ Commands described as running from `Proyecto/` must run from the repository root
 | `esquemas/` | Submission schemas | Read-only reference |
 | `herramientas/` | Course submission-format validator | Read-only reference |
 | `final_test/` | Course README; final-test features are released only after the P5 model lock | No P2 notebook reads or checks final-test files |
-| `plantillas/` | Original course templates | Copy templates before filling them in |
-| `notebooks/borradores/` | Individual role drafts | Each author maintains their own draft |
-| `notebooks/` | Final `P2_cyber.ipynb` and `P2_storage.ipynb`, to be assembled by R5 | R5 |
+| `plantillas/` | Existing course document files, completed in place for this team | Feature register, AI disclosure, roles and protocol memo |
+| `notebooks/R1_data.ipynb`, `R2_cyber.ipynb`, `R3_storage.ipynb`, `R4_evaluacion.ipynb` | Source notebooks for the four role contributions | Team source material |
+| `notebooks/P2_cyber.ipynb`, `notebooks/P2_storage.ipynb` | Integrated P2 notebooks, one per challenge | R5 integration and team review |
 | `entregas_prueba/` | Development-only dry-run predictions and corresponding feature subsets | R2 and R3; integration checked by R5 |
-| Repository root | Completed `features.md`, `roles.md`, `AI_USAGE.md`, `informe.md` and the cumulative `comparativa.csv` | R1 owns the feature register, R4 the comparison table, and R5 the report and reproducibility documents |
+| Repository root | Cumulative `comparativa.csv`; the document files remain in `plantillas/` | R4 owns the comparison table; R5 checks delivery completeness |
 
-## Drafts and final notebooks
+## Source and final notebooks
 
-Use `notebooks/borradores/R1_datos.ipynb` as the R1 source for final integration.
-`R1_data.ipynb` is an alternative earlier draft and is not an additional deliverable.
+Use `notebooks/R1_data.ipynb` as the complete R1 source. The team moved and renamed
+the source notebooks; there is no longer a separate `borradores/` directory.
 
-R5 assembles the relevant sections into one notebook per challenge:
+R5 has assembled the supplied P2 outlines using the following team sections:
 
 - Cyber: R1 data checks and preprocessing, R4 protocol and evaluation, R2 classification and probability analysis, and the P2.6 explanations and dry run.
 - Storage: R1 data checks and preprocessing, R4 protocol and evaluation, R3 target-representation analysis and regression, and the P2.6 explanations and dry run.
 
-Draft paths such as `../../datos` must be adjusted when sections move from
-`notebooks/borradores/` to `notebooks/`. The final notebooks must run independently
-from beginning to end, with their outputs saved. Interpretations belong in Markdown cells.
+Run these notebooks with `notebooks/` as the working directory. Their relative data
+paths start with `../datos`, and their document paths with `../plantillas`. The final
+notebooks run independently from beginning to end. Interpretations belong in Markdown
+cells; copied cells include source notebook and cell identifiers in their metadata.
 
-Do not edit another member's draft without agreement. Report a problem to its author
-and incorporate the corrected section into the final notebook.
+Coordinate substantive model or interpretation changes with the relevant role. Integration
+may adjust paths and separate mixed-challenge cells while preserving the model configurations.
 
 ## Working with Git
 
@@ -89,3 +90,16 @@ python herramientas/validate_submission.py storage entregas_prueba/storage_dry_r
 The validator checks format and identifiers, not predictive performance. For storage,
 verify the conversion to nanoseconds and the output magnitude as well: a file containing
 positive log-scale predictions can pass the format checks while still being incorrect.
+
+## Verified P2 execution
+
+On 2026-10-25, both integrated notebooks were run from beginning to end in fresh
+Jupyter kernels, with outputs saved and no error outputs. The verification environment
+was Python 3.12.14, NumPy 2.5.4, pandas 3.0.1, scikit-learn 1.9.1 and matplotlib 3.11.2.
+The original setup comment in `requirements.txt` refers to Python 3.14; that specific
+environment was not the one used for this verification. Both dry-run validators returned
+`valid`. Notebook metadata also records the environment and the source-cell mapping.
+
+Numerical tie handling and floating-point differences can affect a small number of KNN
+outputs across environments. Report the results actually obtained in the recorded
+environment, and retain the grouped canonical protocol, grids and frozen seed.
