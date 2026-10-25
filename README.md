@@ -74,7 +74,7 @@ two final delivery notebooks: restart their kernels, execute all cells, and save
 - Model storage latency as `z = log10(latency_ns)` after P2.3. Invert predictions with `10 ** z_hat` before computing physical errors or writing submission latencies.
 - Include the completed cumulative registers, comparison rows, the OneR explanation and the two-page protocol memo.
 - Keep all assessed material in English, including comments, Markdown interpretations, figure labels and captions. The Spanish role guide is internal team documentation.
-- Record the actual Python and library versions used for the final run; minimum versions in `requirements.txt` do not pin a complete environment.
+- Record the actual Python and library versions used for the final run; the verified numeric and kernel versions are pinned in `requirements.txt`; the interactive frontend requirement is retained separately.
 - Document AI assistance in `AI_USAGE.md`, including purpose, affected sections and verification. No generative AI is allowed during individual defence questioning.
 - Follow the data attribution and use requirements recorded in both `PROVENANCE.md` files. The team's internal guide requires a private repository for the course data.
 
@@ -96,10 +96,52 @@ positive log-scale predictions can pass the format checks while still being inco
 On 2026-10-25, both integrated notebooks were run from beginning to end in fresh
 Jupyter kernels, with outputs saved and no error outputs. The verification environment
 was Python 3.12.14, NumPy 2.5.4, pandas 3.0.1, scikit-learn 1.9.1 and matplotlib 3.11.2.
-The original setup comment in `requirements.txt` refers to Python 3.14; that specific
-environment was not the one used for this verification. Both dry-run validators returned
+The verified numeric stack is now pinned in `requirements.txt`. An earlier setup comment
+referred to Python 3.14; the verified run instead used Python 3.12.14. Both dry-run validators returned
 `valid`. Notebook metadata also records the environment and the source-cell mapping.
 
 Numerical tie handling and floating-point differences can affect a small number of KNN
 outputs across environments. Report the results actually obtained in the recorded
 environment, and retain the grouped canonical protocol, grids and frozen seed.
+
+## Final P2 audit against the assignment (25 October 2026)
+
+Current remote-main snapshot reviewed: `5190583`. Its R4 updates were incorporated
+with the integration's corrected paths. R2, R3 and the complete R1 source have the
+same executable logic as main after path normalisation. The simpler R4 wording is
+retained where correct, with claims of inevitable cyber optimism and unpaired
+fold-by-fold inference corrected. The team study notes are internal material.
+
+| Requirement | Evidence in the delivery | Result |
+|---|---|---|
+| P2.1 | Both final notebooks: schemas, supports, 34,883 cyber groups, 2,438 storage configurations and five replicates | Checked |
+| P2.2 (a)-(g) | Own grouped folds, invariant outputs, fixed five-neighbour comparisons, canonical discrepancy tables and adoption | Checked |
+| P2.3 | Storage: bounded raw/log comparison and justification repeated in the memo | Checked |
+| P2.4 | Dummy/KNN, independent grids, full curves and dispersion, metric contracts, semantic confusion and paired model differences | Checked |
+| P2.5 | OOF probabilities, ransomware support, ROC/AUC/Brier, five prescribed thresholds, separate argmax and operational costs | Checked |
+| P2.6 | Both valid development dry runs, OneR explanation, four comparison rows, frozen basis and two-page English memo | Checked |
+| Reproducibility | 2627 printed first, learned preprocessing inside each fold, canonical sidecars, recorded versions and fresh-kernel execution | Checked |
+| Cumulative records | Completed P2 files in `plantillas/`: features, roles, AI usage and memo | Checked |
+
+The final verification executed R4 (12 code cells), cyber (34) and storage (45)
+without error outputs. Original course data were unchanged; schema documentation
+and validator source only differ from the initial package in Windows line endings.
+Both dry-run format checks returned `valid`. Comparison-table rows retain their
+original measurement snapshots, including fit times; reruns can change timing and
+do not rewrite historical rows.
+
+For assessment, use **only `P2_cyber.ipynb` and `P2_storage.ipynb` as the two P2
+challenge notebooks**, together with `comparativa.csv`, the completed records in
+`plantillas/`, the memo PDF, the dry-run files, and the course data/dependencies needed
+to reproduce them. R1-R4 source notebooks, `NOTAS_R4_explicacion.md` and the internal
+Spanish role guide are supporting working material, not extra assessed challenge
+notebooks. Later milestone template sections and `model_lock.md` are intentionally
+not filled in for P2. The `features.md` references in historical comparison rows
+identify the register stored at `plantillas/features.md`.
+
+Before submission, each member confirms their AI declaration, reads the final
+interpretations and figures, and practises explaining the work without assistance.
+The team also confirms the submission format and repository visibility required by
+its course instructions. After reviewing changes on `r5-informe`, complete the
+pending merge commit and open a reviewed pull request to main; do not deliver the
+old main snapshot in place of the integrated P2 files.
