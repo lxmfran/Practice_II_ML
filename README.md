@@ -1,58 +1,91 @@
-# Practice II — Machine Learning (P2–P5)
+# Practice II - Machine Learning (P2-P5)
 
-Repositorio del equipo para el proyecto acumulativo de las prácticas 2 a 5.
-La guía completa de qué hace cada rol está en [`docs/Guia_Roles_P2.pdf`](docs/Guia_Roles_P2.pdf).
+Team repository for the cumulative Machine Learning project, Practices 2 to 5.
+The internal role guide is available in [`docs/Guia_Roles_P2.pdf`](docs/Guia_Roles_P2.pdf).
+The course assignment remains the authoritative specification.
 
-## Estructura
+## Repository structure
 
-Equivale a la carpeta `Proyecto/` del enunciado: los comandos que dicen "desde `Proyecto/`" se ejecutan desde la raíz de este repo.
+This repository corresponds to the `Proyecto/` directory in the assignment.
+Commands described as running from `Proyecto/` must run from the repository root.
 
-| Carpeta | Qué hay | ¿Quién la toca? |
+| Location | Contents | Responsibility |
 |---|---|---|
-| `datos/cyber/`, `datos/storage/` | Datos del profe (+ `PROVENANCE.md`). Los folds oficiales se añadirán aquí cuando lleguen. | **Nadie los modifica.** R4 añade los CSV de folds. |
-| `esquemas/` | Formato de las entregas. | Nadie (solo lectura). |
-| `herramientas/` | `validate_submission.py`. | Nadie (solo lectura). |
-| `final_test/` | Vacía hasta la P5. | Nadie. |
-| `plantillas/` | Plantillas originales del profe. | Nadie: se copian, no se editan. |
-| `notebooks/borradores/` | Notebook personal de cada rol (`R1_datos.ipynb`, `R2_cyber.ipynb`…). | Cada uno **solo el suyo**. |
-| `notebooks/` | Los 2 notebooks de entrega (`P2_cyber.ipynb`, `P2_storage.ipynb`). | R5. |
-| `entregas_prueba/` | CSV del simulacro de entrega (P2.6). | R2 (cyber), R3 (storage). |
-| `docs/` | Guías internas del equipo. | — |
+| `datos/cyber/`, `datos/storage/` | Course data, provenance, grouping metadata and the canonical fold CSV files, which are already available | Preserve course-provided files unchanged |
+| `esquemas/` | Submission schemas | Read-only reference |
+| `herramientas/` | Course submission-format validator | Read-only reference |
+| `final_test/` | Course README; final-test features are released only after the P5 model lock | No P2 notebook reads or checks final-test files |
+| `plantillas/` | Original course templates | Copy templates before filling them in |
+| `notebooks/borradores/` | Individual role drafts | Each author maintains their own draft |
+| `notebooks/` | Final `P2_cyber.ipynb` and `P2_storage.ipynb`, to be assembled by R5 | R5 |
+| `entregas_prueba/` | Development-only dry-run predictions and corresponding feature subsets | R2 and R3; integration checked by R5 |
+| Repository root | Completed `features.md`, `roles.md`, `AI_USAGE.md`, `informe.md` and the cumulative `comparativa.csv` | R1 owns the feature register, R4 the comparison table, and R5 the report and reproducibility documents |
 
-## Regla nº 1: no se toca el trabajo de otros
+## Drafts and final notebooks
 
-Puedes abrir y **usar** lo que haya hecho otro, pero **no cambias nada** de sus archivos.
-Si ves un fallo, avisa al dueño (grupo o issue en GitHub). Si necesitas su código, lo copias a tu notebook.
+Use `notebooks/borradores/R1_datos.ipynb` as the R1 source for final integration.
+`R1_data.ipynb` is an alternative earlier draft and is not an additional deliverable.
 
-## Cómo trabajar
+R5 assembles the relevant sections into one notebook per challenge:
 
-1. Primera vez:
-   ```bash
-   git clone https://github.com/lxmfran/Practice_II_ML.git
-   cd Practice_II_ML
-   pip install -r requirements.txt
-   git checkout <tu-rama>
-   ```
-2. Cada vez que empieces: `git pull origin main` estando en tu rama, para traerte lo último.
-3. Trabajas en **tu** notebook dentro de `notebooks/borradores/`.
-4. Antes de hacer commit de un borrador: **Kernel → Restart & Clear Output**.
-5. `git add` + `git commit` + `git push`, y abres un **pull request a `main`**. Otro miembro lo revisa y se mergea.
+- Cyber: R1 data checks and preprocessing, R4 protocol and evaluation, R2 classification and probability analysis, and the P2.6 explanations and dry run.
+- Storage: R1 data checks and preprocessing, R4 protocol and evaluation, R3 target-representation analysis and regression, and the P2.6 explanations and dry run.
 
-Nadie hace commit directamente en `main`.
+Draft paths such as `../../datos` must be adjusted when sections move from
+`notebooks/borradores/` to `notebooks/`. The final notebooks must run independently
+from beginning to end, with their outputs saved. Interpretations belong in Markdown cells.
 
-## Ramas
+Do not edit another member's draft without agreement. Report a problem to its author
+and incorporate the corrected section into the final notebook.
 
-| Rama | Rol en P2 |
+## Working with Git
+
+Clone the repository and install the project dependencies:
+
+```bash
+git clone https://github.com/lxmfran/Practice_II_ML.git
+cd Practice_II_ML
+pip install -r requirements.txt
+```
+
+Work on the branch assigned to your role. Before integrating others' work, fetch the
+remote state and merge `origin/main` into your branch. Preserve uncommitted changes
+before switching branches or resolving conflicts. Another team member reviews the
+pull request before it is merged into `main`.
+
+| Branch | P2 role |
 |---|---|
-| `r1-datos` | R1 — Datos y preprocesado |
-| `r2-cyber` | R2 — Clasificación (reto A) |
-| `r3-storage` | R3 — Regresión (reto B) |
-| `r4-evaluacion` | R4 — Evaluación y validación |
-| `r5-informe` | R5 — Informe y reproducibilidad |
+| `r1-datos` | R1 - Data and preprocessing |
+| `r2-cyber` | R2 - Classification |
+| `r3-storage` | R3 - Regression |
+| `r4-evaluacion` | R4 - Evaluation and validation |
+| `r5-informe` | R5 - Reporting and reproducibility |
 
-## Recordatorios
+Draft outputs may be cleared to reduce merge conflicts. This does not apply to the
+two final delivery notebooks: restart their kernels, execute all cells, and save outputs.
 
-- `PROJECT_RANDOM_STATE = 2627`, impreso en la primera celda de cada notebook.
-- Todo lo entregable va **en inglés**.
-- Nunca entrenar con `row_id`, `feature_group`, `config_group` ni `fold_id`.
-- Los datos de cyber (TON_IoT) son solo para uso académico: **el repo debe ser privado**.
+## P2 checks before delivery
+
+- Print `PROJECT_RANDOM_STATE = 2627` in the first cell of each final notebook. Pass it only to operations that consume randomness; do not search over seeds.
+- Never use `row_id`, `feature_group`, `config_group` or `fold_id` as estimator inputs. Never reintroduce excluded predictors such as `iops`.
+- Fit learned preprocessing only on each fold's training portion, inside a pipeline.
+- After the explicit P2.2 protocol demonstration, use the course canonical fold assignments for scored development results.
+- Model storage latency as `z = log10(latency_ns)` after P2.3. Invert predictions with `10 ** z_hat` before computing physical errors or writing submission latencies.
+- Include the completed cumulative registers, comparison rows, the OneR explanation and the two-page protocol memo.
+- Keep all assessed material in English, including comments, Markdown interpretations, figure labels and captions. The Spanish role guide is internal team documentation.
+- Record the actual Python and library versions used for the final run; minimum versions in `requirements.txt` do not pin a complete environment.
+- Document AI assistance in `AI_USAGE.md`, including purpose, affected sections and verification. No generative AI is allowed during individual defence questioning.
+- Follow the data attribution and use requirements recorded in both `PROVENANCE.md` files. The team's internal guide requires a private repository for the course data.
+
+## Submission-format dry runs
+
+Run these commands from the repository root, using the same Python environment as the notebooks:
+
+```bash
+python herramientas/validate_submission.py cyber entregas_prueba/cyber_dry_run.csv entregas_prueba/cyber_dry_run_features.csv datos/cyber/cyber_class_codes.json
+python herramientas/validate_submission.py storage entregas_prueba/storage_dry_run.csv entregas_prueba/storage_dry_run_features.csv
+```
+
+The validator checks format and identifiers, not predictive performance. For storage,
+verify the conversion to nanoseconds and the output magnitude as well: a file containing
+positive log-scale predictions can pass the format checks while still being incorrect.
