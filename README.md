@@ -26,7 +26,7 @@ Commands described as running from `Proyecto/` must run from the repository root
 Use `notebooks/R1_data.ipynb` as the complete R1 source. The team moved and renamed
 the source notebooks; there is no longer a separate `borradores/` directory.
 
-R5 has assembled the supplied P2 outlines using the following team sections:
+The final P2 notebooks combine the following team contributions:
 
 - Cyber: R1 data checks and preprocessing, R4 protocol and evaluation, R2 classification and probability analysis, and the P2.6 explanations and dry run.
 - Storage: R1 data checks and preprocessing, R4 protocol and evaluation, R3 target-representation analysis and regression, and the P2.6 explanations and dry run.
@@ -104,13 +104,13 @@ Numerical tie handling and floating-point differences can affect a small number 
 outputs across environments. Report the results actually obtained in the recorded
 environment, and retain the grouped canonical protocol, grids and frozen seed.
 
-## Final P2 audit against the assignment (25 October 2026)
+## P2 requirements and verification (25 October 2026)
 
-Current remote-main snapshot reviewed: `5190583`. Its R4 updates were incorporated
-with the integration's corrected paths. R2, R3 and the complete R1 source have the
-same executable logic as main after path normalisation. The simpler R4 wording is
-retained where correct, with claims of inevitable cyber optimism and unpaired
-fold-by-fold inference corrected. The team study notes are internal material.
+The integration includes the contributions available in `main` at commit `5190583`,
+with paths adjusted for execution from `notebooks/`. The protocol discussion reports
+the observed score differences and distinguishes paired model comparisons on the
+same folds from comparisons between different split protocols. The team study notes
+are internal material.
 
 | Requirement | Evidence in the delivery | Result |
 |---|---|---|
@@ -142,6 +142,5 @@ identify the register stored at `plantillas/features.md`.
 Before submission, each member confirms their AI declaration, reads the final
 interpretations and figures, and practises explaining the work without assistance.
 The team also confirms the submission format and repository visibility required by
-its course instructions. After reviewing changes on `r5-informe`, complete the
-pending merge commit and open a reviewed pull request to main; do not deliver the
-old main snapshot in place of the integrated P2 files.
+its course instructions. The reviewed final files must be merged into `main` before
+submission.

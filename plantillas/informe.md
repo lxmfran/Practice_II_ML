@@ -6,7 +6,7 @@
 
 ## 1. Protocol construction
 
-Cyber uses five-fold `StratifiedGroupKFold` on `feature_group`, stratified by `attack_code` as far as grouping permits. Storage uses five-fold `GroupKFold` on `config_group`. Both own constructions use `shuffle=True, random_state=2627`; the row-wise comparators also shuffle with 2627. The project seed is printed first and is not searched or selected. KNN and the scalers themselves consume no random state.
+Cyber uses five-fold `StratifiedGroupKFold` on `feature_group`, stratified by `attack_code` as far as grouping permits. Storage uses five-fold `GroupKFold` on `config_group`. Both grouped splitters use `shuffle=True, random_state=2627`; the row-wise comparators also shuffle with 2627. The project seed is printed first and is not searched or selected. KNN and the scalers themselves consume no random state.
 
 | Property | Cyber | Storage |
 |---|---|---|
@@ -16,7 +16,7 @@ Cyber uses five-fold `StratifiedGroupKFold` on `feature_group`, stratified by `a
 
 ## 2. Verified invariants
 
-The constructed folds print zero shared training/validation groups in every fold. Canonical checks also print zero groups assigned to multiple folds; all rows are validated exactly once. All ten cyber classes occur in every validation fold. Ransomware has 208 observations, with canonical supports 42, 42, 41, 41 and 42. Storage has exactly five replicates per configuration. A nonzero shared-group count, incomplete row coverage or a missing validation class would be a failed check, not an acceptable result to ignore.
+The checks show zero shared training/validation groups in every constructed fold. Canonical checks also print zero groups assigned to multiple folds; all rows are validated exactly once. All ten cyber classes occur in every validation fold. Ransomware has 208 observations, with canonical supports 42, 42, 41, 41 and 42. Storage has exactly five replicates per configuration. A nonzero shared-group count, incomplete row coverage or a missing validation class would be a failed check, not an acceptable result to ignore.
 
 ## 3. What the split comparison measured
 
@@ -58,9 +58,9 @@ Later families may use justified representations of this same source information
 
 ## 7. Canonical adoption and reproducibility
 
-The own constructions and their checks are retained before canonical files are read: cell IDs `cyber-028`/`cyber-030` and `storage-025`/`storage-027`. Canonical comparison occurs at `cyber-038` and `storage-033`; adoption at `cyber-041` and `storage-036`. Cyber reproduces the canonical partition exactly. Storage differs in configuration membership, even after relabelling, while preserving grouping and fold sizes. No alternative seed was searched. From adoption onward, all scored model results use the course sidecars, not the own construction.
+The independently constructed partitions and their checks precede the canonical file loading: cell IDs `cyber-028`/`cyber-030` and `storage-025`/`storage-027`. Canonical comparison occurs at `cyber-038` and `storage-033`; adoption at `cyber-041` and `storage-036`. Cyber reproduces the canonical partition exactly. Storage differs in configuration membership, even after relabelling, while preserving grouping and fold sizes. No alternative seed was searched. From adoption onward, all scored model results use the course sidecars, rather than the independently constructed partitions.
 
-Both integrated notebooks ran from beginning to end in fresh Jupyter kernels with saved outputs: 34 cyber and 45 storage code cells, with no error outputs. Both development-only dry runs returned `valid`; storage also checks physical magnitude, finiteness and positivity. No final-test features were read. Verification used Python 3.12.14, NumPy 2.5.4, pandas 3.0.1, scikit-learn 1.9.1 and matplotlib 3.11.2. These versions are recorded; the original setup note mentioning Python 3.14 is not an assertion that this run used it. This protocol memo is retained unchanged for the defence pack.
+Both integrated notebooks ran from beginning to end in fresh Jupyter kernels with saved outputs: 34 cyber and 45 storage code cells, with no error outputs. Both development-only dry runs returned `valid`; storage also checks physical magnitude, finiteness and positivity. No final-test features were read. Verification used Python 3.12.14, NumPy 2.5.4, pandas 3.0.1, scikit-learn 1.9.1 and matplotlib 3.11.2. These versions define the recorded execution environment. This protocol memo forms part of the defence material.
 
 ## Data attribution and references
 
